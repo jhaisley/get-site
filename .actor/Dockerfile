@@ -3,6 +3,10 @@
 # You can also use any other image from Docker Hub.
 FROM apify/actor-python:3.13
 
+# Create directories and set permissions early
+RUN mkdir -p /usr/local/lib/python3.13/site-packages/apify_fingerprint_datapoints/data && \
+    chmod 777 /usr/local/lib/python3.13/site-packages/apify_fingerprint_datapoints/data
+
 # Second, copy just requirements.txt into the Actor image,
 # since it should be the only file that affects the dependency install in the next step,
 # in order to speed up the build

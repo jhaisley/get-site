@@ -141,29 +141,24 @@ async def run_apify_actor() -> None:
     async with Actor:
         # Get input from Apify
         actor_input = await Actor.get_input() or {}
-        start_urls = actor_input.get('start_urls', [{'url': 'https://apify.com'}])
+        start_url = actor_input.get('start_url', 'https://apify.com')
         max_depth = actor_input.get('max_depth', 1)
+        quiet = actor_input.get('quiet', False)
+        output_file = actor_input.get('output_file', 'output.md')
 
-        # Create a request queue
-        request_queue = await Actor.open_request_queue()
+        # Create crawler instance
+        crawler = AsyncWebCrawler(start_url, max_depth=max_depth, quiet=quiet)
+        await crawler.crawl()
 
-        # Process each start URL
-        for start_url in start_urls:
-            url = start_url.get('url')
-            crawler = AsyncWebCrawler(url, max_depth)
-            await crawler.crawl()
-
-            # Push results to Apify dataset
-            for page in crawler.content:
-                await Actor.push_data({
-                    'url': page['url'],
-                    'title': page['title'],
-                    'content': page['content']
-                })
-
-            # Save local markdown file
-            output_file = Path(f'crawled_{urlparse(url).netloc}.md')
-            crawler.save_markdown(output_file)
+        # Save to output file and push to dataset
+        markdown_content = crawler.save_markdown(Path(output_file))
+        
+        # Push single combined result to dataset
+        await Actor.push_data({
+            'url': start_url,
+            'content': markdown_content,
+            'output_file': output_file
+        })
 
 
 def parse_args() -> argparse.Namespace:
