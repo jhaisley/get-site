@@ -2,6 +2,8 @@
 
 An asynchronous web crawler that mirrors websites into a single organized markdown file, with special handling for images and proper directory structure preservation. Built with Python, asyncio, and httpx.
 
+**Author**: Jordan Haisley (jordanhaisley@gmail.com)
+
 ## Features
 
 - 🚀 Fast asynchronous crawling using `httpx` and `asyncio`
@@ -11,6 +13,8 @@ An asynchronous web crawler that mirrors websites into a single organized markdo
 - 🔍 Depth-controlled crawling
 - 🤖 Dual mode operation: CLI tool or Apify actor
 - 🔒 Domain-restricted crawling for safety
+- 🤫 Quiet mode for silent operation
+- 📤 Flexible output options (file or terminal)
 
 ## Installation
 
@@ -39,27 +43,38 @@ pip install -e .
 
 ### As a CLI Tool
 
-Basic usage to crawl an entire domain:
+Basic usage with output to terminal:
 ```bash
-python main.py https://example.com
+uv run -m src https://example.com
 ```
 
-To crawl a specific subdirectory (will not crawl parent directory):
+Advanced usage with all options:
 ```bash
-python main.py https://example.com/docs/
+uv run -m src [URL] [-o OUTPUT_FILE] [-q] [-d MAX_DEPTH]
 ```
 
-The crawler will:
-1. Visit each page under the specified URL
-2. Convert HTML content to Markdown
-3. Process and include images with alt text and filenames
-4. Save everything to `crawled_site.md`
+Options:
+- `-o, --output`: Save output to specified file instead of terminal
+- `-q, --quiet`: Suppress all output except errors
+- `-d, --max-depth`: Maximum crawl depth (default: 1)
+
+Examples:
+```bash
+# Crawl quietly and save to file
+uv run -m src -q -o output.md https://example.com
+
+# Crawl subdirectory with depth 2
+uv run -m src -d 2 https://example.com/docs/
+
+# Output to terminal silently
+uv run -m src -q https://example.com
+```
 
 ### As an Apify Actor
 
 Run without arguments to use as an Apify actor:
 ```bash
-python main.py
+uv run -m src
 ```
 
 Actor input schema:
@@ -98,6 +113,18 @@ Page content in markdown...
 - `html2text` - HTML to Markdown conversion
 - `validators` - URL validation
 - `apify` - Apify platform integration (optional)
+
+## Testing
+
+Run the test suite using:
+```bash
+uv run -m pytest
+```
+
+For verbose output:
+```bash
+uv run -m pytest -v
+```
 
 ## License
 
