@@ -3,5 +3,12 @@
 	"name": "get-site",
 	"version": "0.0",
 	"buildTag": "latest",
+	"meta": {
+        "templateId": "python-beautifulsoup"
+    },
+	"dockerfile": "actor-python",
+	"input": "./input_schema.json",
 	"environmentVariables": {}
+    
+    
 }
