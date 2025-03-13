@@ -1,5 +1,3 @@
-
-
 # Apify: Full-stack web scraping and data extraction platform
 *URL: https://apify.com*
 

@@ -1,0 +1,38 @@
+{
+    "actorSpecification": 1,
+    "fields": {
+        "url": {
+            "type": "string",
+            "description": "The starting URL that was crawled",
+            "editor": "textfield"
+        },
+        "content": {
+            "type": "string", 
+            "description": "The crawled website content converted to markdown format",
+            "editor": "textarea"
+        }
+    },
+    "views": {
+        "overview": {
+            "title": "Overview",
+            "transformation": {
+                "fields": ["url", "content"]
+            },
+            "display": {
+                "component": "table",
+                "columns": [
+                    {
+                        "label": "Source URL",
+                        "format": "text",
+                        "field": "url"
+                    },
+                    {
+                        "label": "Data",
+                        "format": "textarea",
+                        "field": "content"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,5 +1,3 @@
-
-
 # Example
 *URL: https://example.com*
 

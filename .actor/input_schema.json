@@ -21,13 +21,6 @@
             "type": "boolean",
             "description": "If true, reduces console output",
             "default": false
-        },
-        "output_file": {
-            "title": "Output file",
-            "type": "string",
-            "description": "Name of the output markdown file",
-            "default": "output.md",
-            "editor": "textfield"
         }
     },
     "required": ["start_url"]
