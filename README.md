@@ -1,3 +1,8 @@
+# ARCHIVED
+
+This was a cool utility, but https://github.com/markdown-it is better in every way, and I would recommend folks use it going forward. 
+
+
 # Website to Markdown Crawler
 
 An asynchronous web crawler that mirrors websites into a single organized markdown file, with special handling for images and proper directory structure preservation. Built with Python, asyncio, and httpx.
